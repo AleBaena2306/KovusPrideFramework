@@ -1,0 +1,9 @@
+{
+  "name": "com.kovuspride.framework",
+  "version": "0.1.0",
+  "displayName": "Kovu's Pride Framework",
+  "description": "Código reutilizable de los juegos de Kovu's Pride: publicación en portales web (StorePlatform), build web para el portfolio, puentes de JavaScript (analítica, anuncios, vibración) y WebSocket.",
+  "unity": "6000.2",
+  "author": { "name": "Kovu's Pride (Alejandro Baena Mejías)", "url": "https://alejandrobaenaportfolio.com" },
+  "keywords": ["kovuspride", "webgl", "publishing", "crazygames", "playgama"]
+}

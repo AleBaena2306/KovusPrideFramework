@@ -1,0 +1,14 @@
+{
+  "name": "KovusPride.Web",
+  "rootNamespace": "KovusPride.Web",
+  "references": ["KovusPride.Publishing"],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

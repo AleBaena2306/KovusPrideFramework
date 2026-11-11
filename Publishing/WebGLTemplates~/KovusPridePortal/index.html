@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <title>{{{ PRODUCT_NAME }}}</title>
+  <!-- Kovu's Pride · plantilla para portales (CrazyGames, Playgama, GameDistribution, itch.io).
+       El menú de publicación sustituye KP_STORE_HEAD por el SDK de la plataforma y kp-platform.js por su contenido. -->
+  <!-- KP_STORE_HEAD -->
+  <script src="kp-platform.js"></script>
+  <style>
+    html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #F3EEE6;
+      -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
+      -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent; touch-action: none; }
+    #stage { position: absolute; inset: 0; }
+    #unity-canvas { width: 100%; height: 100%; display: block; background: #F3EEE6; outline: none; touch-action: none; }
+    #loading { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      font: 700 18px system-ui, -apple-system, "Segoe UI", sans-serif; color: #3B3836; background: #F3EEE6; }
+    #bar { width: 60%; max-width: 280px; height: 10px; border-radius: 999px; background: #E6DFD3; margin-top: 14px; overflow: hidden; }
+    #fill { width: 0; height: 100%; background: #3B3836; border-radius: 999px; transition: width .15s; }
+    #error { display: none; padding: 24px; text-align: center; }
+  </style>
+</head>
+<body>
+  <div id="stage">
+    <canvas id="unity-canvas" tabindex="-1"></canvas>
+    <div id="loading"><div id="title">{{{ PRODUCT_NAME }}}</div><div id="bar"><div id="fill"></div></div><div id="error"></div></div>
+  </div>
+  <script>
+  (function () {
+    // El juego ocupa siempre toda la ventana (Playgama exige llenar el área en cualquier proporción, también 1:1).
+    // La interfaz de Unity se adapta sola: en pantallas anchas manda la altura y el fondo llena los lados.
+
+    // Sin gestos del navegador (zoom, menú, selección) sobre el juego
+    var canvas = document.getElementById('unity-canvas');
+    ['contextmenu', 'dragstart', 'selectstart'].forEach(function (e) { canvas.addEventListener(e, function (ev) { ev.preventDefault(); }); });
+    document.addEventListener('gesturestart', function (e) { e.preventDefault(); });
+    document.addEventListener('touchmove', function (e) { if (e.touches.length > 1) e.preventDefault(); }, { passive: false });
+
+    var touch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+    var config = {
+      dataUrl: 'Build/{{{ DATA_FILENAME }}}',
+      frameworkUrl: 'Build/{{{ FRAMEWORK_FILENAME }}}',
+#if USE_WASM
+      codeUrl: 'Build/{{{ CODE_FILENAME }}}',
+#endif
+#if MEMORY_FILENAME
+      memoryUrl: 'Build/{{{ MEMORY_FILENAME }}}',
+#endif
+#if SYMBOLS_FILENAME
+      symbolsUrl: 'Build/{{{ SYMBOLS_FILENAME }}}',
+#endif
+      streamingAssetsUrl: 'StreamingAssets',
+      companyName: {{{ JSON.stringify(COMPANY_NAME) }}},
+      productName: {{{ JSON.stringify(PRODUCT_NAME) }}},
+      productVersion: {{{ JSON.stringify(PRODUCT_VERSION) }}},
+      devicePixelRatio: touch ? Math.min(window.devicePixelRatio || 1, 2) : undefined,
+    };
+
+    // Primero el SDK de la plataforma (Playgama exige que esté iniciado antes de cargar el motor), luego Unity
+    var pre = (window.KPPlatform && window.KPPlatform.preload) ? window.KPPlatform.preload() : Promise.resolve();
+    pre.then(startUnity, startUnity);
+
+    function startUnity() {
+    var loader = document.createElement('script');
+    loader.src = 'Build/{{{ LOADER_FILENAME }}}';
+    loader.onload = function () {
+      createUnityInstance(canvas, config, function (p) {
+        document.getElementById('fill').style.width = Math.round(p * 100) + '%';
+      }).then(function () {
+        document.getElementById('loading').style.display = 'none';
+        canvas.focus();
+      }).catch(function (e) {
+        console.error(e);
+        document.getElementById('bar').style.display = 'none';
+        var err = document.getElementById('error');
+        err.style.display = 'block';
+        err.textContent = 'The game could not start. Please reload the page.';
+      });
+    };
+    document.body.appendChild(loader);
+    }
+  })();
+  </script>
+</body>
+</html>
