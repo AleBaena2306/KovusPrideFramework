@@ -9,7 +9,7 @@ Package Manager → «+» → *Install package from git URL…*:
 https://github.com/AleBaena2306/KovusPrideFramework.git#v0.1.0
 ```
 
-Fije siempre una versión (`#vX.Y.Z`). Un juego publicado no se actualiza salvo que se decida.
+Fije siempre una versión (`#vX.Y.Z`). Cada versión se publica como una rama `vX.Y.Z` que no se vuelve a mover (las etiquetas de git no se pueden subir desde las sesiones de Claude); `main` es la versión en desarrollo. Un juego publicado no se actualiza salvo que se decida.
 
 ## Módulos
 | Módulo | Assembly | Qué hace |
@@ -28,7 +28,7 @@ Cada módulo tiene su README con la API y un ejemplo.
 
 ## Reglas
 - Sin referencias a ningún juego concreto. Lo específico de cada juego (menús, nombre, slug, parámetros) vive en el juego.
-- Versionado semántico. Un cambio que rompa la API sube la versión MAJOR. Cada versión se anota en `CHANGELOG.md` y se etiqueta (`vX.Y.Z`).
+- Versionado semántico. Un cambio que rompa la API sube la versión MAJOR. Cada versión se anota en `CHANGELOG.md` y se publica como rama `vX.Y.Z`.
 - Un sistema pasa al framework cuando ya se ha usado en un juego y es razonable reutilizarlo.
 
 ## Origen
