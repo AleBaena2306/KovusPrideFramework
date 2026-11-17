@@ -286,7 +286,13 @@ public static class KovusPrideWebBuild
             string message = $"{GameName} web {version} ({DateTime.Now:yyyy-MM-dd HH:mm})";
             if (!Git(portfolio, $"commit -m \"{message}\" -- \"{gamePath}\"", "Guardando la build…")) return;
             if (!Git(portfolio, "pull --rebase --autostash", "Sincronizando con GitHub…")) return;
-            if (!Git(portfolio, "push", "Subiendo a GitHub (puede tardar)…", timeoutSeconds: 900)) return;
+            // Builds de decenas de MB: búfer grande y hasta 3 intentos (GitHub corta con HTTP 408 las subidas lentas)
+            const string pushArgs = "-c http.postBuffer=524288000 -c http.lowSpeedLimit=1000 -c http.lowSpeedTime=600 push";
+            bool pushed = false;
+            for (int attempt = 1; attempt <= 3 && !pushed; attempt++)
+                pushed = Git(portfolio, pushArgs, attempt == 1 ? "Subiendo a GitHub (puede tardar)…" : $"Subiendo a GitHub, intento {attempt} de 3…",
+                             timeoutSeconds: 900, logOnly: attempt < 3);
+            if (!pushed) return;
 
             Debug.Log($"[WebBuild] Publicado: {message}. Cloudflare actualiza la web en un minuto (alejandrobaenaportfolio.com/play/{GameSlug}).");
             EditorUtility.DisplayDialog(GameName + " · Publicar",
@@ -313,10 +319,13 @@ public static class KovusPrideWebBuild
         Debug.LogWarning($"[WebBuild] git {args} ha fallado ({r.code}):\n{r.output}");
         if (!logOnly)
             EditorUtility.DisplayDialog(GameName + " · Publicar",
-                $"Ha fallado «git {args.Split(' ')[0]}». La build está en la carpeta del portfolio, pero no se ha publicado.\n\n" +
+                $"Ha fallado «git {LastWord(args)}». La build está en la carpeta del portfolio, pero no se ha publicado.\n\n" +
                 $"{Trim(r.output, 600)}\n\nCuando esté resuelto: <JUEGO> > Build > Web: publicar la última build.", "Vale");
         return false;
     }
+
+    // «-c x=y -c z=w push» → «push»
+    private static string LastWord(string args) { var parts = args.Split(' '); return parts[parts.Length - 1]; }
 
     private static (int code, string output) RunGit(string repo, string args, int timeoutSeconds = 300)
     {

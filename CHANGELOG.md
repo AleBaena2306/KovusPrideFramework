@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.1.1] - 2026-11-17
+### Corregido
+- Web: la publicación sube las builds grandes con búfer de 500 MB y hasta 3 intentos (GitHub cortaba con HTTP 408).
+
 ## [0.1.0] · 2026-11-11
 Primera versión, extraída de Colorify.
 ### Añadido
