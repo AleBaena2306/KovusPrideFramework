@@ -20,6 +20,11 @@ Fije siempre una versión (`#vX.Y.Z`). Cada versión se publica como una rama `v
 
 Cada módulo tiene su README con la API y un ejemplo.
 
+## Herramientas (`Tools~`, fuera de Unity)
+| Herramienta | Qué hace |
+| --- | --- |
+| [ShapeForge](Tools~/ShapeForge/README.md) | Assets hipercasual con figuras geométricas: spec JSON → SVG → PNG (@1x/@2x) + hoja de previsualización. `pip install resvg-py pillow` |
+
 ## Uso en un juego nuevo
 1. Instalar el paquete por URL (arriba).
 2. Crear en `Assets/<Juego>/Editor/` los menús del juego (ver `Web/README.md` y `Publishing/README.md`).

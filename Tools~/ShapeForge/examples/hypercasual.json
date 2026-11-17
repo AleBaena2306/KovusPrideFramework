@@ -1,0 +1,88 @@
+{
+  "palette": "hyper",
+  "colors": { "gold": "#FFC531" },
+  "assets": [
+    {
+      "name": "coin", "width": 128, "height": 128,
+      "layers": [
+        { "type": "circle", "cx": 64, "cy": 64, "r": 54, "fill": "$gold-0.25", "shadow": { "dy": 6, "opacity": 0.2 } },
+        { "type": "circle", "cx": 64, "cy": 58, "r": 54, "fill": "$gold", "highlight": { "height": 0.45, "opacity": 0.25 } },
+        { "type": "ring", "cx": 64, "cy": 58, "r": 40, "inner": 33, "fill": "$gold-0.2" },
+        { "type": "star", "cx": 64, "cy": 58, "r": 22, "inner": 0.5, "radius": 2, "fill": "$gold+0.4" }
+      ]
+    },
+    {
+      "name": "target", "width": 160, "height": 160,
+      "layers": [
+        { "type": "circle", "cx": 80, "cy": 84, "r": 72, "fill": "$shadow", "opacity": 0.15 },
+        { "type": "circle", "cx": 80, "cy": 78, "r": 72, "fill": "$white" },
+        { "type": "circle", "cx": 80, "cy": 78, "r": 56, "fill": "$red" },
+        { "type": "circle", "cx": 80, "cy": 78, "r": 40, "fill": "$white" },
+        { "type": "circle", "cx": 80, "cy": 78, "r": 22, "fill": "$red", "highlight": true }
+      ]
+    },
+    {
+      "name": "gem", "width": 128, "height": 128,
+      "layers": [
+        { "type": "rhombus", "cx": 64, "cy": 64, "w": 90, "h": 110, "radius": 6,
+          "fill": { "linear": ["$teal+0.3", "$teal-0.2"], "angle": 90 }, "shadow": { "dy": 6, "opacity": 0.2 } },
+        { "type": "points", "points": [[64, 9], [109, 64], [64, 64]], "fill": "$white", "opacity": 0.3 }
+      ]
+    },
+    {
+      "name": "heart", "width": 128, "height": 128,
+      "layers": [
+        { "type": "heart", "cx": 64, "cy": 66, "size": 104, "fill": "$pink", "highlight": true, "shadow": { "dy": 5, "opacity": 0.2 } }
+      ]
+    },
+    {
+      "name": "star", "width": 128, "height": 128,
+      "layers": [
+        { "type": "star", "cx": 64, "cy": 68, "r": 56, "inner": 0.48, "radius": 6, "fill": "$yellow", "highlight": true,
+          "shadow": { "dy": 5, "opacity": 0.2 } }
+      ]
+    },
+    {
+      "name": "button_play", "width": 256, "height": 112,
+      "layers": [
+        { "type": "rect", "x": 8, "y": 16, "w": 240, "h": 88, "radius": 28, "fill": "$green-0.3" },
+        { "type": "rect", "x": 8, "y": 6, "w": 240, "h": 88, "radius": 28, "fill": "$green", "highlight": { "height": 0.4, "opacity": 0.2 } },
+        { "type": "polygon", "cx": 132, "cy": 50, "r": 26, "sides": 3, "rotation": 90, "radius": 5, "fill": "$white" }
+      ]
+    },
+    {
+      "name": "hero_blob", "width": 128, "height": 128,
+      "layers": [
+        { "type": "ellipse", "cx": 64, "cy": 116, "rx": 38, "ry": 8, "fill": "$shadow", "opacity": 0.15 },
+        { "type": "blob", "cx": 64, "cy": 64, "r": 48, "lobes": 9, "jitter": 0.08, "seed": 3, "fill": "$blue", "highlight": true },
+        { "type": "circle", "cx": 50, "cy": 56, "r": 12, "fill": "$white" },
+        { "type": "circle", "cx": 80, "cy": 56, "r": 12, "fill": "$white" },
+        { "type": "circle", "cx": 53, "cy": 58, "r": 6, "fill": "$ink" },
+        { "type": "circle", "cx": 83, "cy": 58, "r": 6, "fill": "$ink" },
+        { "type": "line", "points": [[54, 82], [64, 88], [74, 82]], "stroke": { "color": "$ink", "width": 5 } }
+      ]
+    },
+    {
+      "name": "spike", "width": 128, "height": 128,
+      "layers": [
+        { "type": "star", "cx": 64, "cy": 64, "r": 58, "inner": 0.62, "points": 10, "radius": 3, "fill": "$ink", "shadow": { "dy": 4, "opacity": 0.2 } },
+        { "type": "circle", "cx": 64, "cy": 64, "r": 26, "fill": "$ink+0.2" }
+      ]
+    },
+    {
+      "name": "platform", "width": 256, "height": 64,
+      "layers": [
+        { "type": "rect", "x": 0, "y": 12, "w": 256, "h": 52, "radius": 14, "fill": "$wood" },
+        { "type": "rect", "x": 0, "y": 0, "w": 256, "h": 26, "radius": 13, "fill": "$grass", "highlight": { "height": 0.5, "opacity": 0.2 } }
+      ]
+    },
+    {
+      "name": "progress_pie", "width": 128, "height": 128,
+      "layers": [
+        { "type": "circle", "cx": 64, "cy": 64, "r": 56, "fill": "$ink", "opacity": 0.15 },
+        { "type": "sector", "cx": 64, "cy": 64, "r": 56, "start": 0, "end": 250, "fill": "$orange" },
+        { "type": "circle", "cx": 64, "cy": 64, "r": 34, "fill": "$white" }
+      ]
+    }
+  ]
+}
