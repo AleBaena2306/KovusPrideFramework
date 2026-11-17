@@ -18,6 +18,7 @@ python shapeforge.py examples/hypercasual.json -o Assets/MiJuego/Art/Generated -
 - `-o` carpeta de salida (puede ser directamente dentro de `Assets/`; Unity importa los PNG).
 - `--scale 1 2` genera `nombre.png` y `nombre@2x.png`.
 - `--only coin star` regenera solo esos assets.
+- `--no-svg` solo PNG; `--preview ruta.png` guarda la hoja de previsualización en otro sitio (útil si la salida es una carpeta `Resources`).
 - Siempre crea `_preview.png` con todos los assets para revisarlos de un vistazo.
 
 En Unity: Texture Type = Sprite (2D and UI). `Tools~` no se importa en los proyectos (la tilde lo oculta).

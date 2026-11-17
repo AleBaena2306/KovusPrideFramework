@@ -377,6 +377,8 @@ def main():
     ap.add_argument("--scale", type=float, nargs="+", default=[1.0], help="Escalas de PNG (p. ej. 1 2)")
     ap.add_argument("--only", nargs="*", help="Generar solo estos assets")
     ap.add_argument("--no-preview", action="store_true")
+    ap.add_argument("--no-svg", action="store_true", help="Solo PNG (útil si la salida es Assets/…/Resources)")
+    ap.add_argument("--preview", help="Ruta de la hoja de previsualización (por defecto <out>/_preview.png)")
     args = ap.parse_args()
 
     with open(args.spec, encoding="utf-8") as f:
@@ -392,8 +394,9 @@ def main():
             continue
         svg = build_svg(asset, ctx)
         base = os.path.join(args.out, asset["name"])
-        with open(base + ".svg", "w", encoding="utf-8") as f:
-            f.write(svg)
+        if not args.no_svg:
+            with open(base + ".svg", "w", encoding="utf-8") as f:
+                f.write(svg)
         for sc in args.scale:
             suffix = "" if sc == 1 else f"@{fmt(sc)}x"
             render_png(svg, base + suffix + ".png", sc)
@@ -401,8 +404,9 @@ def main():
         print("✓", asset["name"])
 
     if made and not args.no_preview:
-        preview_sheet(made, os.path.join(args.out, "_preview.png"))
-        print("Hoja de previsualización:", os.path.join(args.out, "_preview.png"))
+        prev = args.preview or os.path.join(args.out, "_preview.png")
+        preview_sheet(made, prev)
+        print("Hoja de previsualización:", prev)
 
 
 if __name__ == "__main__":
